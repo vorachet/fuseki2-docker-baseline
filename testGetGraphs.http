@@ -1,0 +1,19 @@
+@hostname = http://localhost:3030
+@db = kb
+@username = admin
+@password = password
+
+###
+# @name GetGraphWithTurtle
+GET {{hostname}}/{{db}}  HTTP/1.1
+Accept: text/turtle
+Authorization: Digest {{username}} {{password}}
+
+#<http://example.org/#spiderman> <http://www.perceive.net/schemas/relationship/enemyOf> <http://example.org/#green-goblin> .
+
+
+###
+# @name GetGraphWithJSONLD 
+GET {{hostname}}/{{db}}  HTTP/1.1
+Accept: application/ld+json
+Authorization: Digest {{username}} {{password}}

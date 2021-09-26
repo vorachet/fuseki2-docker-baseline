@@ -1,0 +1,44 @@
+@prefix : <#> .
+@prefix fuseki: <http://jena.apache.org/fuseki#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tdb: <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix ja: <http://jena.hpl.hp.com/2005/11/Assembler#> .
+
+[] rdf:type fuseki:Server ;
+    fuseki:services (
+        <#service>
+    ) .
+
+## ---------------------------------------------------------------
+## Service with only SPARQL query on an inference model.
+## Inference model base data in TDB.
+
+<#service> rdf:type fuseki:Service ;
+    fuseki:name "kb" ;
+    fuseki:serviceQuery "query" , "sparql" ;
+    fuseki:serviceUpdate "update" ;
+    fuseki:serviceUpload "upload" ;
+    fuseki:serviceReadWriteGraphStore "data" ;
+    fuseki:serviceReadGraphStore "get" ;
+    fuseki:dataset <#dataset>  ;
+    .
+
+<#dataset> rdf:type ja:RDFDataset ;
+    ja:defaultGraph <#model> ;
+    . 
+
+<#model> rdf:type ja:InfModel ;
+    ja:baseModel <#tdbGraph> ;
+    ja:reasoner [
+        ja:reasonerURL <http://jena.hpl.hp.com/2003/OWLFBRuleReasoner> ;
+    ] ;
+    .
+
+<#tdbGraph> rdf:type tdb:GraphTDB ;
+    tdb:dataset <#tdbDataset> ;
+    .
+
+<#tdbDataset> rdf:type tdb:DatasetTDB2 ;
+    tdb:location "/fuseki/databases/kb" ;
+    .

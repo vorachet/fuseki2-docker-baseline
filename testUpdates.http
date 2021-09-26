@@ -1,0 +1,50 @@
+@hostname = http://localhost:3030
+@db = kb
+@username = admin
+@password = password
+
+###
+# @name U1
+POST {{hostname}}/{{db}}  HTTP/1.1
+Accept: application/sparql-results+json
+Content-Type: text/turtle
+Authorization: Digest {{username}} {{password}}
+
+<http://example.org/#spiderman> <http://www.perceive.net/schemas/relationship/enemyOf> <http://example.org/#green-goblin> .
+
+###
+# @name U2
+POST {{hostname}}/{{db}}  HTTP/1.1
+Accept: application/sparql-results+json
+Content-Type: application/ld+json
+Authorization: Digest {{username}} {{password}}
+
+{
+  "@id": "http://example.org/#spiderman",
+  "enemyOf": "http://example.org/#green-goblin",
+  "@context": {
+    "enemyOf": {
+      "@id": "http://www.perceive.net/schemas/relationship/enemyOf",
+      "@type": "@id"
+    }
+  }
+}
+
+###
+# @name U2
+POST {{hostname}}/{{db}}  HTTP/1.1
+Accept: application/sparql-results+json
+Content-Type: application/ld+json
+Authorization: Digest {{username}} {{password}}
+
+{
+  "@id": "http://example.org/#spiderman",
+  "enemyOf": "http://example.org/#green-goblin",
+  "@context": {
+    "enemyOf": {
+      "@id": "http://www.perceive.net/schemas/relationship/enemyOf",
+      "@type": "@id"
+    }
+  }
+}
+

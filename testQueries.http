@@ -1,0 +1,81 @@
+@hostname = http://localhost:3030
+@db = kb
+@username = admin
+@password = password
+
+###
+# @name Q1
+POST {{hostname}}/{{db}}  HTTP/1.1
+Accept: application/sparql-results+json
+Content-Type: application/sparql-query
+Authorization: Digest {{username}} {{password}}
+
+SELECT ?subject ?predicate ?object
+WHERE {
+  ?subject ?predicate ?object
+}
+LIMIT 25
+
+#{
+#  "head": {
+#    "vars": [
+#      "subject",
+#      "predicate",
+#      "object"
+#    ]
+#  },
+#  "results": {
+#    "bindings": [
+#      {
+#        "subject": {
+#          "type": "uri",
+#          "value": "http://example.org/#spiderman"
+#        },
+#        "predicate": {
+#          "type": "uri",
+#          "value": "http://www.perceive.net/schemas/relationship/enemyOf"
+#        },
+#        "object": {
+#          "type": "uri",
+#          "value": "http://example.org/#green-goblin"
+#        }
+#      }
+#    ]
+#  }
+#}
+
+###
+# @name Q2
+POST {{hostname}}/{{db}}  HTTP/1.1
+Accept: application/sparql-results+xml
+Content-Type: application/sparql-query
+Authorization: Digest {{username}} {{password}}
+
+SELECT ?subject ?predicate ?object
+WHERE {
+  ?subject ?predicate ?object
+}
+LIMIT 25
+
+#<?xml version="1.0"?>
+#<sparql 
+#  xmlns="http://www.w3.org/2005/sparql-results#">
+#  <head>
+#    <variable name="subject"/>
+#    <variable name="predicate"/>
+#    <variable name="object"/>
+#  </head>
+#  <results>
+#    <result>
+#      <binding name="subject">
+#        <uri>http://example.org/#spiderman</uri>
+#      </binding>
+#      <binding name="predicate">
+#        <uri>http://www.perceive.net/schemas/relationship/enemyOf</uri>
+#      </binding>
+#      <binding name="object">
+#        <uri>http://example.org/#green-goblin</uri>
+#      </binding>
+#    </result>
+#  </results>
+#</sparql>

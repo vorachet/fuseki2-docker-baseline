@@ -1,0 +1,15 @@
+# Modified by Vorachet 
+
+version: '3.0'
+services:
+  fuseki:
+    image: scdt/fuseki:latest
+    ports:
+      - "3030:3030"
+    volumes:
+      - ./logs:/fuseki/logs
+      - ./public:/fuseki/public
+      - ./configs:/fuseki/configs
+      - ./security:/fuseki/security
+      - ./readonly:/fuseki/readonly
+      - ./databases:/fuseki/databases

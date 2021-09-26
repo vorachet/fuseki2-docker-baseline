@@ -1,0 +1,24 @@
+@hostname = http://localhost:3030
+@db = kb
+@username = admin
+@password = password
+
+###
+# @name SPARQLSubject
+POST {{hostname}}/{{db}}  HTTP/1.1
+Accept: application/sparql-results+json
+Content-Type: application/sparql-update
+Authorization: Digest {{username}} {{password}}
+
+DELETE WHERE 
+{ <http://example.org/#spiderman> ?p ?o }
+
+###
+# @name SPARQLPrediucate
+POST {{hostname}}/{{db}}  HTTP/1.1
+Accept: application/sparql-results+json
+Content-Type: application/sparql-update
+Authorization: Digest {{username}} {{password}}
+
+DELETE WHERE 
+{ ?s <http://www.perceive.net/schemas/relationship/enemyOf> ?o }
